@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omoola Travel and Tours | Ibadan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#16a34a',
+                            dark: '#14532d',
+                            light: '#dcfce7',
+                            accent: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand selection:text-white">
+
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-brand to-brand-dark rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md shadow-brand/20">
+                        OT
+                    </div>
+                    <div>
+                        <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 block leading-tight">Omoola</span>
+                        <span class="text-xs font-medium text-brand tracking-wider uppercase block">Travel & Tours, Ibadan</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+                    <a href="#destinations" class="hover:text-brand transition">Destinations</a>
+                    <a href="#services" class="hover:text-brand transition">Services</a>
+                    <a href="#planner" class="hover:text-brand transition">Trip Planner</a>
+                    <a href="#ibadan" class="hover:text-brand transition">Ibadan Hub</a>
+                    <a href="#contact" class="hover:text-brand transition">Contact</a>
+                    <div id="user-nav-link" class="hidden">
+                        <a href="#user-dashboard" onclick="openUserDashboard()" class="text-brand font-bold bg-brand-light px-3 py-1.5 rounded-xl"><i class="fa-solid fa-user-gear mr-1"></i> My Dashboard</a>
+                    </div>
+                    <div id="admin-nav-link" class="hidden">
+                        <a href="#admin-dashboard" onclick="openAdminDashboard()" class="text-brand font-bold bg-brand-light px-3 py-1.5 rounded-xl"><i class="fa-solid fa-gauge mr-1"></i> Admin Dashboard</a>
+                    </div>
+                </nav>
+
+                <!-- Auth / Action Buttons -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <div id="auth-user-info" class="hidden items-center space-x-2 text-xs font-semibold bg-slate-100 px-3 py-2 rounded-xl">
+                        <i class="fa-solid fa-user-circle text-brand text-base"></i>
+                        <span id="nav-username" class="text-slate-800">User</span>
+                        <button onclick="logout()" class="text-red-500 hover:text-red-700 ml-2 font-bold" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                    <div id="auth-guest-buttons" class="flex items-center space-x-2">
+                        <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-bold text-slate-700 hover:text-brand bg-slate-100 rounded-xl transition">
+                            Login
+                        </button>
+                        <button onclick="openAuthModal('signup')" class="px-4 py-2 text-sm font-semibold bg-brand hover:bg-brand-dark text-white rounded-xl shadow-md shadow-brand/20 transition">
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#destinations" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Destinations</a>
+            <a href="#services" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Services</a>
+            <a href="#planner" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Trip Planner</a>
+            <a href="#ibadan" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Ibadan Hub</a>
+            <a href="#contact" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Contact Us</a>
+            <div id="mobile-user-link" class="hidden">
+                <a href="#" onclick="openUserDashboard(); toggleMobileMenu();" class="block px-3 py-2 rounded-lg text-base font-bold text-brand bg-brand-light">My Dashboard</a>
+            </div>
+            <div id="mobile-admin-link" class="hidden">
+                <a href="#" onclick="openAdminDashboard(); toggleMobileMenu();" class="block px-3 py-2 rounded-lg text-base font-bold text-brand bg-brand-light">Admin Dashboard</a>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex flex-col space-y-2" id="mobile-auth-container">
+                <!-- Dynamically populated auth buttons for mobile -->
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden py-16 sm:py-24">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand/20 text-brand border border-brand/30">
+                        <i class="fa-solid fa-location-dot mr-2"></i> Premier Travel Agency in Ibadan, Oyo State
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                        Your Gateway to <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-emerald-400">Global Adventures</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0">
+                        Seamless visa processing, flight bookings, exotic international holidays, and local Ibadan staycations. Experience hassle-free travels with Omoola.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#planner" class="w-full sm:w-auto bg-brand hover:bg-brand-dark text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-brand/30 transition text-center">
+                            Plan Your Trip <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#destinations" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-8 py-4 rounded-2xl transition text-center">
+                            Explore Packages
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800 text-left max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-white">5k+</p>
+                            <p class="text-xs text-slate-400 font-medium">Happy Travelers</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-white">99%</p>
+                            <p class="text-xs text-slate-400 font-medium">Visa Success Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-black text-white">24/7</p>
+                            <p class="text-xs text-slate-400 font-medium">Customer Support</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="bg-white text-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                            <i class="fa-solid fa-compass text-brand mr-2.5"></i> Quick Travel Inquiry
+                        </h3>
+                        <form id="quick-inquiry-form" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name</label>
+                                <input type="text" id="qi-name" required placeholder="e.g. Adebayo Omotayo" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-brand text-sm">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Service Needed</label>
+                                    <select id="qi-service" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-brand text-sm font-medium">
+                                        <option>Visa Assistance</option>
+                                        <option>Flight Booking</option>
+                                        <option>Tour Package</option>
+                                        <option>Hotel Reservation</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Destination</label>
+                                    <input type="text" id="qi-dest" required placeholder="e.g. Dubai, UK, Canada" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-brand text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Phone Number (WhatsApp)</label>
+                                <input type="tel" id="qi-phone" required placeholder="e.g. 08030000000" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-brand text-sm">
+                            </div>
+                            <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl shadow-md transition text-sm">
+                                Send Inquiry via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand-light px-3 py-1 rounded-full">What We Do</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Comprehensive Travel Solutions</h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">We handle all complexities so you can focus entirely on enjoying your trip.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:shadow-xl transition group hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-brand-light text-brand rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand group-hover:text-white transition">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Visa Assistance</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Expert guidance for tourist, study, and business visas to USA, UK, Canada, Schengen countries, and Dubai.</p>
+                </div>
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:shadow-xl transition group hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-brand-light text-brand rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand group-hover:text-white transition">
+                        <i class="fa-solid fa-plane-departure"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Flight Ticketing</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Best rates on local and international flights with trusted airlines. Flexible dates and round-the-clock booking support.</p>
+                </div>
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:shadow-xl transition group hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-brand-light text-brand rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand group-hover:text-white transition">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Hotel Bookings</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Curated luxury and budget-friendly accommodation reservations worldwide and top spots right here in Ibadan.</p>
+                </div>
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:shadow-xl transition group hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-brand-light text-brand rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand group-hover:text-white transition">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Tour Packages</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">All-inclusive holiday packages to Dubai, Zanzibar, Maldives, Europe, and custom group honeymoon trips.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinations" class="py-16 sm:py-24 bg-slate-100/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand-light px-3 py-1 rounded-full">Top Picks</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Featured Destinations</h2>
+                    <p class="text-slate-600 mt-2 text-sm sm:text-base">Explore our most booked travel hotspots this season.</p>
+                </div>
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="destination-filters">
+                    <button data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-brand text-white shadow-sm transition">All</button>
+                    <button data-filter="international" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white text-slate-600 hover:bg-slate-200 transition">International</button>
+                    <button data-filter="african" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white text-slate-600 hover:bg-slate-200 transition">African Getaways</button>
+                    <button data-filter="local" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white text-slate-600 hover:bg-slate-200 transition">Nigeria / Ibadan</button>
+                </div>
+            </div>
+
+            <!-- Destinations Grid with Real Photos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="destinations-grid">
+                <!-- Card 1: Dubai -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="international">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" alt="Dubai" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9
+                        </span>
+                        <span class="absolute top-4 left-4 bg-brand text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            International
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Dubai Extravaganza</h3>
+                                <span class="text-brand font-bold text-sm">₦850k / pers</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Includes 5 nights hotel stay, flight tickets, desert safari adventure, and UAE visa assistance.</p>
+                        </div>
+                        <button onclick="openBookingModal('Dubai Extravaganza', '₦850,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Zanzibar -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="african">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Zanzibar" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8
+                        </span>
+                        <span class="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            African Getaway
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Zanzibar Beach Retreat</h3>
+                                <span class="text-brand font-bold text-sm">₦720k / pers</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Crystal clear waters, beachfront resort accommodation, breakfast, and airport transfers.</p>
+                        </div>
+                        <button onclick="openBookingModal('Zanzibar Beach Retreat', '₦720,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3: London -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="international">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" alt="London" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 5.0
+                        </span>
+                        <span class="absolute top-4 left-4 bg-brand text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            International
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">United Kingdom Tour</h3>
+                                <span class="text-brand font-bold text-sm">₦1.4m / pers</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Complete UK Standard Visitor Visa documentation support, flight booking, and hotel booking in London.</p>
+                        </div>
+                        <button onclick="openBookingModal('United Kingdom Tour', '₦1,400,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4: Ibadan Weekend -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="local">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Ibadan Hotel" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.7
+                        </span>
+                        <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            Local / Ibadan
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Luxury Ibadan Weekend</h3>
+                                <span class="text-brand font-bold text-sm">₦120k / pers</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Weekend getaway at top Ibadan hotels, Agodi Gardens tour, Bowers Tower visit, and spa session.</p>
+                        </div>
+                        <button onclick="openBookingModal('Luxury Ibadan Weekend', '₦120,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5: Maldives -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="international">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" alt="Maldives" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9
+                        </span>
+                        <span class="absolute top-4 left-4 bg-brand text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            International
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Maldives Honeymoon</h3>
+                                <span class="text-brand font-bold text-sm">₦1.8m / couple</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Overwater villa experience, all-inclusive dining, speed boat transfers, and professional photoshoot.</p>
+                        </div>
+                        <button onclick="openBookingModal('Maldives Honeymoon', '₦1,800,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 6: Kenya Safari -->
+                <div class="destination-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-slate-100 flex flex-col" data-category="african">
+                    <div class="relative h-56 overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80" alt="Kenya Safari" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8
+                        </span>
+                        <span class="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                            African Getaway
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Kenya Safari & Nairobi</h3>
+                                <span class="text-brand font-bold text-sm">₦650k / pers</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">Masai Mara game drive, Nairobi city tour, luxury lodge stay, and seamless visa processing.</p>
+                        </div>
+                        <button onclick="openBookingModal('Kenya Safari & Nairobi', '₦650,000')" class="w-full bg-slate-100 hover:bg-brand hover:text-white text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center">
+                            <span>Book Package</span> <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planner" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-2xl mb-8">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand/20 px-3 py-1 rounded-full border border-brand/30">Interactive Tool</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-3">Custom Itinerary & Cost Estimator</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">Configure your dream trip details below and generate an instant estimated budget.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-white/10">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Select Destination Type</label>
+                            <select id="plan-dest-type" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                                <option value="local">Local Nigeria / Ibadan (₦)</option>
+                                <option value="african">African Country (₦)</option>
+                                <option value="international">International / Europe / US (₦)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Duration of Stay</label>
+                            <select id="plan-days" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                                <option value="3">3 Days Weekend</option>
+                                <option value="7" selected>7 Days Standard</option>
+                                <option value="14">14 Days Extended</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Accommodation Class</label>
+                            <select id="plan-hotel" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                                <option value="3">Comfort (3-Star)</option>
+                                <option value="5" selected>Luxury (4/5-Star)</option>
+                                <option value="2">Budget / Apartment</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">Number of Travelers</label>
+                            <input type="number" id="plan-travelers" min="1" max="20" value="1" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-between bg-slate-900/80 p-6 rounded-xl border border-slate-700">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-brand mb-2">Estimated Package Cost</h4>
+                            <div class="text-3xl sm:text-4xl font-black text-white mb-4" id="estimate-result">₦750,000</div>
+                            <ul class="space-y-2 text-xs sm:text-sm text-slate-300 border-t border-slate-800 pt-4">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand mr-2"></i> Flight arrangements included</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand mr-2"></i> Visa documentation guidance</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand mr-2"></i> Hotel reservation</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand mr-2"></i> 24/7 Omoola Concierge Support</li>
+                            </ul>
+                        </div>
+                        <button onclick="submitCustomPlan()" class="mt-6 w-full bg-brand hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl transition text-sm shadow-lg shadow-brand/30">
+                            Book This Custom Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ibadan" class="py-16 sm:py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand-light px-3 py-1 rounded-full">Our Roots</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Proudly Based in the Heart of Ibadan</h2>
+                    <p class="text-slate-600 mt-4 text-base leading-relaxed">
+                        Omoola Travel and Tours is anchored in Ibadan, Oyo State. Whether you are traveling out from the ancient city for global business, schooling abroad, or looking for local weekend relaxation spots, our local office is fully equipped to give you personalized physical or virtual consultations.
+                    </p>
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Office Address</h4>
+                                <p class="text-sm text-slate-600">Challenge / Ring Road Axis, Ibadan, Oyo State, Nigeria.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Working Hours</h4>
+                                <p class="text-sm text-slate-600">Monday - Friday: 8:00 AM - 5:00 PM | Saturday: 9:00 AM - 3:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100 space-y-6">
+                    <h3 class="text-xl font-bold text-slate-900">Top Ibadan Tourist Attractions We Support</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-mountain text-brand mr-2"></i> Bowers Tower</h4>
+                            <p class="text-xs text-slate-600">Historic hilltop monument offering panoramic views of Ibadan city.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-tree text-brand mr-2"></i> Agodi Gardens</h4>
+                            <p class="text-xs text-slate-600">Serene botanical garden, mini zoo, and water park right in the city.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-landmark text-brand mr-2"></i> Cocoa House</h4>
+                            <p class="text-xs text-slate-600">Nigeria's first skyscraper located in the commercial heart of Dugbe.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-store text-brand mr-2"></i> Bodija & Oja Oba</h4>
+                            <p class="text-xs text-slate-600">Vibrant cultural markets showcasing authentic Yoruba heritage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 sm:py-24 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand/20 px-3 py-1 rounded-full border border-brand/30">Get in Touch</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">Ready to Start Your Journey?</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Contact our expert travel consultants in Ibadan today. Reach us via phone, WhatsApp, or drop by our office for a face-to-face consultation.
+                    </p>
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-brand/20 text-brand rounded-xl flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Call Us</p>
+                                <a href="tel:+2348000000000" class="text-lg font-bold hover:text-brand transition">+234 800 OMOOLA (0800 066 6527)</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-brand/20 text-brand rounded-xl flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">WhatsApp Chat</p>
+                                <a href="https://wa.me/2348000000000" target="_blank" class="text-lg font-bold hover:text-brand transition">+234 812 345 6789</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-xl">
+                    <h3 class="text-xl font-bold mb-6">Send Us a Direct Message</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Your Name</label>
+                            <input type="text" id="con-name" required placeholder="Adebayo Omotayo" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Phone / WhatsApp</label>
+                            <input type="tel" id="con-phone" required placeholder="08030000000" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Message</label>
+                            <textarea id="con-msg" rows="4" required placeholder="Tell us how we can help you..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl transition text-sm shadow-lg shadow-brand/30">
+                            Submit Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center text-white font-black text-lg">
+                        OT
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-base block">Omoola Travel and Tours</span>
+                        <span class="text-xs text-slate-500">Ibadan, Oyo State, Nigeria. All rights reserved.</span>
+                    </div>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-brand transition"><i class="fa-brands fa-facebook-f text-lg"></i></a>
+                    <a href="#" class="hover:text-brand transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-brand transition"><i class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-brand transition"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex space-x-4 mb-6 border-b border-slate-100 pb-4">
+                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="text-lg font-bold text-brand pb-1 border-b-2 border-brand">Login</button>
+                <button id="tab-signup-btn" onclick="switchAuthTab('signup')" class="text-lg font-bold text-slate-400 pb-1">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="user@omoolatravels.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl text-xs text-slate-500 space-y-1">
+                    <p><span class="font-bold">Admin:</span> admin@omoolatravels.com / admin123</p>
+                    <p><span class="font-bold">User:</span> user@omoolatravels.com / user123</p>
+                </div>
+                <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl transition text-sm shadow-md">
+                    Login to Account
+                </button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="Adebayo Omotayo" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="user@omoolatravels.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl transition text-sm shadow-md">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mb-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand bg-brand-light px-3 py-1 rounded-full">Secure Reservation</span>
+                <h3 class="text-xl font-extrabold text-slate-900 mt-2" id="modal-title">Package Name</h3>
+                <p class="text-brand font-bold text-lg mt-1" id="modal-price">₦0</p>
+            </div>
+            <form id="modal-booking-form" class="space-y-4">
+                <input type="hidden" id="modal-pkg-name">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Your Full Name</label>
+                    <input type="text" id="mb-name" required placeholder="Adebayo Omotayo" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">WhatsApp Phone Number</label>
+                    <input type="tel" id="mb-phone" required placeholder="08030000000" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Preferred Travel Date</label>
+                    <input type="date" id="mb-date" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                </div>
+                <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl transition text-sm shadow-md">
+                    Proceed to WhatsApp Booking
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-slate-800">
+        <div class="w-10 h-10 bg-brand text-white rounded-xl flex items-center justify-center font-bold text-lg shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm" id="toast-title">Success</h4>
+            <p class="text-xs text-slate-400" id="toast-msg">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-6xl w-full h-[92vh] shadow-2xl relative flex flex-col md:flex-row overflow-hidden">
+            <button onclick="closeAdminModal()" class="absolute top-5 right-5 z-20 text-slate-400 hover:text-slate-700 text-xl font-bold bg-slate-100 hover:bg-slate-200 w-10 h-10 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- Admin Sidebar -->
+            <div class="w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col justify-between shrink-0">
+                <div>
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-10 h-10 bg-brand text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                            OT
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold text-sm leading-tight">Admin Portal</h3>
+                            <span class="text-xs text-brand">Omoola Travel & Tours</span>
+                        </div>
+                    </div>
+                    <nav class="space-y-2">
+                        <button onclick="switchAdminTab('overview')" id="atab-overview-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-brand text-white transition">
+                            <i class="fa-solid fa-chart-pie w-5"></i> <span>Overview</span>
+                        </button>
+                        <button onclick="switchAdminTab('bookings')" id="atab-bookings-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-suitcase-rolling w-5"></i> <span>Bookings & Plans</span>
+                        </button>
+                        <button onclick="switchAdminTab('inquiries')" id="atab-inquiries-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-comments w-5"></i> <span>Inquiries & Messages</span>
+                        </button>
+                        <button onclick="switchAdminTab('users')" id="atab-users-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-users w-5"></i> <span>Registered Users</span>
+                        </button>
+                        <button onclick="switchAdminTab('packages')" id="atab-packages-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-earth-africa w-5"></i> <span>Manage Packages</span>
+                        </button>
+                    </nav>
+                </div>
+                <div class="pt-4 border-t border-slate-800">
+                    <button onclick="closeAdminModal(); logout();" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-red-500/10 hover:bg-red-500/20 text-red-400 transition">
+                        <i class="fa-solid fa-right-from-bracket w-5"></i> <span>Logout Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Content Area -->
+            <div class="flex-1 bg-slate-50 p-6 sm:p-8 overflow-y-auto">
+                <!-- Page 1: Overview -->
+                <div id="admin-page-overview" class="space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Dashboard Overview</h2>
+                        <p class="text-xs sm:text-sm text-slate-500">Real-time statistics and system performance metrics.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Bookings & Plans</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2" id="stat-total-bookings">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-emerald-100 text-brand rounded-2xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-suitcase-rolling"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Client Inquiries</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2" id="stat-total-inquiries">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Registered Users</p>
+                                <p class="text-3xl font-black text-slate-900 mt-2" id="stat-total-users">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4">Quick System Actions</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="switchAdminTab('bookings')" class="bg-brand text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow-md">View All Bookings</button>
+                            <button onclick="switchAdminTab('users')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-5 py-2.5 rounded-xl text-sm">Manage Users</button>
+                            <button onclick="switchAdminTab('packages')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-5 py-2.5 rounded-xl text-sm">Manage Packages</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2: Bookings & Plans -->
+                <div id="admin-page-bookings" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Bookings & Custom Itineraries</h2>
+                            <p class="text-xs sm:text-sm text-slate-500">Manage customer travel reservations and custom trip estimator outputs.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-600 text-xs uppercase font-bold">
+                                        <th class="p-4">Type</th>
+                                        <th class="p-4">Client Name</th>
+                                        <th class="p-4">Package / Details</th>
+                                        <th class="p-4">Contact</th>
+                                        <th class="p-4">Date</th>
+                                        <th class="p-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-bookings-table" class="divide-y divide-slate-100">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3: Inquiries & Messages -->
+                <div id="admin-page-inquiries" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Inquiries & Direct Messages</h2>
+                        <p class="text-xs sm:text-sm text-slate-500">Quick inquiries, WhatsApp chats, and contact form submissions.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-600 text-xs uppercase font-bold">
+                                        <th class="p-4">Type</th>
+                                        <th class="p-4">Client Name</th>
+                                        <th class="p-4">Message / Details</th>
+                                        <th class="p-4">Contact</th>
+                                        <th class="p-4">Date</th>
+                                        <th class="p-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-inquiries-table" class="divide-y divide-slate-100">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 4: Registered Users -->
+                <div id="admin-page-users" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Registered Users</h2>
+                        <p class="text-xs sm:text-sm text-slate-500">All registered client accounts on Omoola Travel portal.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-600 text-xs uppercase font-bold">
+                                        <th class="p-4">Full Name</th>
+                                        <th class="p-4">Email Address</th>
+                                        <th class="p-4">Role</th>
+                                        <th class="p-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-table" class="divide-y divide-slate-100">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5: Manage Packages -->
+                <div id="admin-page-packages" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Travel Packages Management</h2>
+                            <p class="text-xs sm:text-sm text-slate-500">Active tour packages featured on the website.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="admin-packages-list">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard Modal -->
+    <div id="user-dashboard-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-5xl w-full h-[90vh] shadow-2xl relative flex flex-col md:flex-row overflow-hidden">
+            <button onclick="closeUserDashboard()" class="absolute top-5 right-5 z-20 text-slate-400 hover:text-slate-700 text-xl font-bold bg-slate-100 hover:bg-slate-200 w-10 h-10 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- User Sidebar -->
+            <div class="w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col justify-between shrink-0">
+                <div>
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-10 h-10 bg-brand text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                            OT
+                        </div>
+                        <div>
+                            <h3 id="user-dash-name" class="text-white font-bold text-sm leading-tight">My Account</h3>
+                            <span class="text-xs text-brand">Omoola Travel & Tours</span>
+                        </div>
+                    </div>
+                    <nav class="space-y-2">
+                        <button onclick="switchUserTab('bookings')" id="utab-bookings-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-brand text-white transition">
+                            <i class="fa-solid fa-suitcase-rolling w-5"></i> <span>My Bookings</span>
+                        </button>
+                        <button onclick="switchUserTab('inquiries')" id="utab-inquiries-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-comments w-5"></i> <span>My Inquiries</span>
+                        </button>
+                        <button onclick="switchUserTab('profile')" id="utab-profile-btn" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition">
+                            <i class="fa-solid fa-user-gear w-5"></i> <span>Account Profile</span>
+                        </button>
+                    </nav>
+                </div>
+                <div class="pt-4 border-t border-slate-800">
+                    <button onclick="closeUserDashboard(); logout();" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-red-500/10 hover:bg-red-500/20 text-red-400 transition">
+                        <i class="fa-solid fa-right-from-bracket w-5"></i> <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Content Area -->
+            <div class="flex-1 bg-slate-50 p-6 sm:p-8 overflow-y-auto">
+                <div id="user-tab-bookings" class="space-y-6">
+                    <h2 class="text-2xl font-extrabold text-slate-900">My Bookings & Custom Plans</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Track all your reserved holiday packages and itinerary plans.</p>
+                    <div id="user-bookings-list" class="space-y-4"></div>
+                </div>
+                <div id="user-tab-inquiries" class="space-y-6 hidden">
+                    <h2 class="text-2xl font-extrabold text-slate-900">My Inquiries & Messages</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Review your past inquiries and direct messages sent to our Ibadan office.</p>
+                    <div id="user-inquiries-list" class="space-y-4"></div>
+                </div>
+                <div id="user-tab-profile" class="space-y-6 hidden">
+                    <h2 class="text-2xl font-extrabold text-slate-900">Account Settings</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Update your personal account credentials.</p>
+                    <form id="user-profile-form" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4 max-w-lg">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Full Name</label>
+                            <input type="text" id="up-name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Email Address (Read-only)</label>
+                            <input type="email" id="up-email" disabled class="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-sm text-slate-500 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">New Password (leave blank to keep current)</label>
+                            <input type="password" id="up-password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-brand">
+                        </div>
+                        <button type="submit" class="bg-brand text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management with localStorage
+        let currentUser = JSON.parse(localStorage.getItem('omoola_current_user')) || null;
+        let users = JSON.parse(localStorage.getItem('omoola_users')) || [
+            { id: 1, name: 'Admin Account', email: 'admin@omoolatravels.com', password: 'admin123', role: 'admin' },
+            { id: 2, name: 'Adebayo Omotayo', email: 'user@omoolatravels.com', password: 'user123', role: 'user' }
+        ];
+        let submissions = JSON.parse(localStorage.getItem('omoola_submissions')) || [
+            { id: 101, userId: 2, type: 'Booking', name: 'Adebayo Omotayo', details: 'Dubai Extravaganza (₦850,000)', contact: '08031234567', date: '2026-06-15' },
+            { id: 102, userId: 2, type: 'Inquiry', name: 'Adebayo Omotayo', details: 'Visa Assistance (UK)', contact: '08098765432', date: '2026-06-16' }
+        ];
+        let packagesData = JSON.parse(localStorage.getItem('omoola_packages')) || [
+            { id: 1, name: 'Dubai Extravaganza', category: 'International', price: '₦850,000' },
+            { id: 2, name: 'Zanzibar Beach Retreat', category: 'African Getaway', price: '₦720,000' },
+            { id: 3, name: 'United Kingdom Tour', category: 'International', price: '₦1,400,000' },
+            { id: 4, name: 'Luxury Ibadan Weekend', category: 'Local / Ibadan', price: '₦120,000' },
+            { id: 5, name: 'Maldives Honeymoon', category: 'International', price: '₦1,800,000' },
+            { id: 6, name: 'Kenya Safari & Nairobi', category: 'African Getaway', price: '₦650,000' }
+        ];
+
+        // Save helper
+        function persistData() {
+            localStorage.setItem('omoola_current_user', JSON.stringify(currentUser));
+            localStorage.setItem('omoola_users', JSON.stringify(users));
+            localStorage.setItem('omoola_submissions', JSON.stringify(submissions));
+            localStorage.setItem('omoola_packages', JSON.stringify(packagesData));
+            updateAuthUI();
+        }
+
+        // Update Nav UI based on auth state
+        function updateAuthUI() {
+            const userInfo = document.getElementById('auth-user-info');
+            const guestButtons = document.getElementById('auth-guest-buttons');
+            const navUsername = document.getElementById('nav-username');
+            const userNavLink = document.getElementById('user-nav-link');
+            const adminNavLink = document.getElementById('admin-nav-link');
+            const mobileUserLink = document.getElementById('mobile-user-link');
+            const mobileAdminLink = document.getElementById('mobile-admin-link');
+            const mobileAuthContainer = document.getElementById('mobile-auth-container');
+
+            if (currentUser) {
+                userInfo.classList.remove('hidden');
+                userInfo.classList.add('flex');
+                guestButtons.classList.add('hidden');
+                navUsername.textContent = currentUser.name;
+
+                if (currentUser.role === 'admin') {
+                    adminNavLink.classList.remove('hidden');
+                    userNavLink.classList.add('hidden');
+                    mobileAdminLink.classList.remove('hidden');
+                    mobileUserLink.classList.add('hidden');
+                } else {
+                    adminNavLink.classList.add('hidden');
+                    userNavLink.classList.remove('hidden');
+                    mobileAdminLink.classList.add('hidden');
+                    mobileUserLink.classList.remove('hidden');
+                }
+
+                mobileAuthContainer.innerHTML = `
+                    <div class="px-3 py-2 text-sm font-bold text-slate-800 bg-slate-100 rounded-xl">Signed in as ${currentUser.name}</div>
+                    ${currentUser.role === 'user' ? '<button onclick="openUserDashboard(); toggleMobileMenu();" class="w-full text-center py-2.5 bg-brand text-white font-bold rounded-xl">My Dashboard</button>' : ''}
+                    ${currentUser.role === 'admin' ? '<button onclick="openAdminDashboard(); toggleMobileMenu();" class="w-full text-center py-2.5 bg-brand text-white font-bold rounded-xl">Admin Dashboard</button>' : ''}
+                    <button onclick="logout()" class="w-full text-center py-2.5 bg-red-50 text-red-600 font-bold rounded-xl">Logout</button>
+                `;
+            } else {
+                userInfo.classList.add('hidden');
+                guestButtons.classList.remove('hidden');
+                userNavLink.classList.add('hidden');
+                adminNavLink.classList.add('hidden');
+                mobileUserLink.classList.add('hidden');
+                mobileAdminLink.classList.add('hidden');
+
+                mobileAuthContainer.innerHTML = `
+                    <button onclick="openAuthModal('login'); toggleMobileMenu();" class="w-full text-center py-2.5 bg-slate-100 text-slate-800 font-bold rounded-xl">Login</button>
+                    <button onclick="openAuthModal('signup'); toggleMobileMenu();" class="w-full text-center py-2.5 bg-brand text-white font-bold rounded-xl shadow-md">Sign Up</button>
+                `;
+            }
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        }
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Destination Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const destinationCards = document.querySelectorAll('.destination-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-slate-600');
+                });
+                btn.classList.remove('bg-white', 'text-slate-600');
+                btn.classList.add('bg-brand', 'text-white', 'shadow-sm');
+
+                const filter = btn.getAttribute('data-filter');
+                destinationCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Trip Estimator Calculator Logic
+        const destTypeSelect = document.getElementById('plan-dest-type');
+        const daysSelect = document.getElementById('plan-days');
+        const hotelSelect = document.getElementById('plan-hotel');
+        const travelersInput = document.getElementById('plan-travelers');
+        const estimateResult = document.getElementById('estimate-result');
+
+        function calculateEstimate() {
+            if (!destTypeSelect || !daysSelect || !hotelSelect || !travelersInput || !estimateResult) return;
+            const destType = destTypeSelect.value;
+            const days = parseInt(daysSelect.value);
+            const hotelMultiplier = parseInt(hotelSelect.value);
+            const travelers = parseInt(travelersInput.value) || 1;
+
+            let baseRatePerDay = 45000;
+            if (destType === 'african') baseRatePerDay = 95000;
+            if (destType === 'international') baseRatePerDay = 180000;
+
+            let total = baseRatePerDay * days * (hotelMultiplier * 0.4) * travelers;
+            estimateResult.textContent = '₦' + total.toLocaleString('en-NG', { maximumFractionDigits: 0 });
+        }
+
+        [destTypeSelect, daysSelect, hotelSelect, travelersInput].forEach(el => {
+            if (el) el.addEventListener('input', calculateEstimate);
+        });
+        calculateEstimate();
+
+        function submitCustomPlan() {
+            const destType = destTypeSelect.options[destTypeSelect.selectedIndex].text;
+            const days = daysSelect.value;
+            const travelers = travelersInput.value;
+            const cost = estimateResult.textContent;
+
+            submissions.push({
+                id: Date.now(),
+                userId: currentUser ? currentUser.id : null,
+                type: 'Custom Plan',
+                name: currentUser ? currentUser.name : 'Guest Traveler',
+                details: `${destType} (${days} Days, ${travelers} travelers) - ${cost}`,
+                contact: currentUser ? currentUser.email : 'WhatsApp Inquiry',
+                date: new Date().toISOString().split('T')[0]
+            });
+            persistData();
+
+            const msg = `Hello Omoola Travel, I used your Ibadan online planner for a custom trip: Destination Type: ${destType}, Duration: ${days} Days, Travelers: ${travelers}, Estimated Cost: ${cost}. Please assist me with booking!`;
+            const url = `https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`;
+            
+            showToast('Plan Saved & Redirecting', 'Opening WhatsApp chat with Omoola Travel consultants...');
+            setTimeout(() => { window.open(url, '_blank'); }, 1000);
+        }
+
+        // Modal Controls
+        const bookingModal = document.getElementById('booking-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalPrice = document.getElementById('modal-price');
+        const modalPkgName = document.getElementById('modal-pkg-name');
+
+        function openBookingModal(pkgName, price) {
+            modalTitle.textContent = pkgName;
+            modalPrice.textContent = price;
+            modalPkgName.value = pkgName;
+            if (currentUser) {
+                document.getElementById('mb-name').value = currentUser.name;
+            }
+            bookingModal.classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            bookingModal.classList.add('hidden');
+        }
+
+        bookingModal.addEventListener('click', (e) => {
+            if (e.target === bookingModal) closeBookingModal();
+        });
+
+        document.getElementById('modal-booking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('mb-name').value;
+            const phone = document.getElementById('mb-phone').value;
+            const date = document.getElementById('mb-date').value;
+            const pkg = modalPkgName.value;
+            const price = modalPrice.textContent;
+
+            submissions.push({
+                id: Date.now(),
+                userId: currentUser ? currentUser.id : null,
+                type: 'Booking',
+                name: name,
+                details: `${pkg} (${price}) - Date: ${date}`,
+                contact: phone,
+                date: new Date().toISOString().split('T')[0]
+            });
+            persistData();
+
+            const msg = `Hello Omoola Travel! I want to book the package: *${pkg}* (${price}). Name: ${name}, Phone: ${phone}, Travel Date: ${date}.`;
+            const url = `https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`;
+
+            closeBookingModal();
+            showToast('Booking Confirmed!', 'Redirecting to WhatsApp to complete your reservation...');
+            setTimeout(() => { window.open(url, '_blank'); }, 1000);
+        });
+
+        // Quick Inquiry Form
+        document.getElementById('quick-inquiry-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('qi-name').value;
+            const service = document.getElementById('qi-service').value;
+            const dest = document.getElementById('qi-dest').value;
+            const phone = document.getElementById('qi-phone').value;
+
+            submissions.push({
+                id: Date.now(),
+                userId: currentUser ? currentUser.id : null,
+                type: 'Inquiry',
+                name: name,
+                details: `${service} to ${dest}`,
+                contact: phone,
+                date: new Date().toISOString().split('T')[0]
+            });
+            persistData();
+
+            const msg = `Hello Omoola Travel! Inquiry from ${name}. Service: ${service}, Destination: ${dest}, Phone: ${phone}.`;
+            const url = `https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`;
+
+            showToast('Inquiry Sent!', 'Redirecting to WhatsApp with your details...');
+            setTimeout(() => { window.open(url, '_blank'); }, 1000);
+        });
+
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('con-name').value;
+            const phone = document.getElementById('con-phone').value;
+            const message = document.getElementById('con-msg').value;
+
+            submissions.push({
+                id: Date.now(),
+                userId: currentUser ? currentUser.id : null,
+                type: 'Message',
+                name: name,
+                details: message,
+                contact: phone,
+                date: new Date().toISOString().split('T')[0]
+            });
+            persistData();
+
+            const msg = `Hello Omoola Travel! Message from ${name} (${phone}): ${message}`;
+            const url = `https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`;
+
+            showToast('Message Received!', 'Redirecting to WhatsApp...');
+            setTimeout(() => { window.open(url, '_blank'); }, 1000);
+        });
+
+        // Auth Modal & Logic
+        const authModal = document.getElementById('auth-modal');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const tabLoginBtn = document.getElementById('tab-login-btn');
+        const tabSignupBtn = document.getElementById('tab-signup-btn');
+
+        function openAuthModal(mode) {
+            authModal.classList.remove('hidden');
+            switchAuthTab(mode);
+        }
+
+        function closeAuthModal() {
+            authModal.classList.add('hidden');
+        }
+
+        function switchAuthTab(mode) {
+            if (mode === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabLoginBtn.className = "text-lg font-bold text-brand pb-1 border-b-2 border-brand";
+                tabSignupBtn.className = "text-lg font-bold text-slate-400 pb-1";
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabSignupBtn.className = "text-lg font-bold text-brand pb-1 border-b-2 border-brand";
+                tabLoginBtn.className = "text-lg font-bold text-slate-400 pb-1";
+            }
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const found = users.find(u => u.email === email && u.password === password);
+            if (found) {
+                currentUser = found;
+                persistData();
+                closeAuthModal();
+                showToast('Welcome Back!', `Logged in successfully as ${found.name}`);
+            } else {
+                showToast('Login Failed', 'Invalid email or password.');
+            }
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            if (users.some(u => u.email === email)) {
+                showToast('Signup Error', 'Email already registered.');
+                return;
+            }
+
+            const newUser = { id: Date.now(), name, email, password, role: 'user' };
+            users.push(newUser);
+            currentUser = newUser;
+            persistData();
+            closeAuthModal();
+            showToast('Account Created!', `Welcome to Omoola Travel, ${name}`);
+        });
+
+        function logout() {
+            currentUser = null;
+            persistData();
+            showToast('Logged Out', 'You have been successfully signed out.');
+        }
+
+        // User Dashboard Modal & Tabs
+        const userDashboardModal = document.getElementById('user-dashboard-modal');
+
+        function openUserDashboard() {
+            if (!currentUser || currentUser.role !== 'user') {
+                showToast('Access Restricted', 'Please login with a client account.');
+                openAuthModal('login');
+                return;
+            }
+
+            document.getElementById('user-dash-name').textContent = currentUser.name;
+            document.getElementById('up-name').value = currentUser.name;
+            document.getElementById('up-email').value = currentUser.email;
+
+            renderUserDashboardContent();
+            userDashboardModal.classList.remove('hidden');
+        }
+
+        function closeUserDashboard() {
+            userDashboardModal.classList.add('hidden');
+        }
+
+        function switchUserTab(tabName) {
+            ['bookings', 'inquiries', 'profile'].forEach(t => {
+                document.getElementById(`user-tab-${t}`).classList.add('hidden');
+                document.getElementById(`utab-${t}-btn`).className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition";
+            });
+            document.getElementById(`user-tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`utab-${tabName}-btn`).className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-brand text-white transition";
+        }
+
+        function renderUserDashboardContent() {
+            // Filter submissions belonging to this user
+            const mySubs = submissions.filter(s => s.userId === currentUser.id || s.contact.includes(currentUser.email));
+            
+            const bookingsList = document.getElementById('user-bookings-list');
+            const inquiriesList = document.getElementById('user-inquiries-list');
+
+            const myBookings = mySubs.filter(s => s.type === 'Booking' || s.type === 'Custom Plan');
+            const myInquiries = mySubs.filter(s => s.type === 'Inquiry' || s.type === 'Message');
+
+            bookingsList.innerHTML = myBookings.length === 0 ? '<p class="text-slate-500 text-sm py-4">No bookings or custom plans recorded yet.</p>' : '';
+            myBookings.forEach(b => {
+                bookingsList.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${b.type === 'Booking' ? 'bg-emerald-100 text-brand' : 'bg-indigo-100 text-indigo-700'}">${b.type}</span>
+                            <h4 class="text-base font-bold text-slate-900 mt-2">${b.details}</h4>
+                            <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-calendar mr-1"></i> Booked on: ${b.date}</p>
+                        </div>
+                        <button onclick="deleteUserSubmission(${b.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Cancel</button>
+                    </div>
+                `;
+            });
+
+            inquiriesList.innerHTML = myInquiries.length === 0 ? '<p class="text-slate-500 text-sm py-4">No inquiries sent yet.</p>' : '';
+            myInquiries.forEach(i => {
+                inquiriesList.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">${i.type}</span>
+                            <h4 class="text-base font-bold text-slate-900 mt-2">${i.details}</h4>
+                            <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-calendar mr-1"></i> Sent on: ${i.date}</p>
+                        </div>
+                        <button onclick="deleteUserSubmission(${i.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Remove</button>
+                    </div>
+                `;
+            });
+        }
+
+        document.getElementById('user-profile-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('up-name').value;
+            const newPass = document.getElementById('up-password').value;
+
+            currentUser.name = newName;
+            if (newPass.trim() !== '') {
+                currentUser.password = newPass;
+            }
+
+            // Update in users array
+            users = users.map(u => u.id === currentUser.id ? currentUser : u);
+            persistData();
+            showToast('Profile Updated', 'Your profile changes have been saved.');
+            document.getElementById('nav-username').textContent = currentUser.name;
+        });
+
+        function deleteUserSubmission(id) {
+            submissions = submissions.filter(s => s.id !== id);
+            persistData();
+            renderUserDashboardContent();
+            showToast('Removed', 'Record deleted successfully.');
+        }
+
+        // Admin Dashboard Modal & Multi-Pages
+        const adminModal = document.getElementById('admin-modal');
+
+        function openAdminDashboard() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Access Denied', 'Admin privileges required.');
+                openAuthModal('login');
+                return;
+            }
+
+            renderAdminOverview();
+            adminModal.classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            adminModal.classList.add('hidden');
+        }
+
+        function switchAdminTab(pageName) {
+            ['overview', 'bookings', 'inquiries', 'users', 'packages'].forEach(p => {
+                const pageEl = document.getElementById(`admin-page-${p}`);
+                const btnEl = document.getElementById(`atab-${p}-btn`);
+                if (pageEl) pageEl.classList.add('hidden');
+                if (btnEl) btnEl.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 text-slate-300 transition";
+            });
+
+            const activePage = document.getElementById(`admin-page-${pageName}`);
+            const activeBtn = document.getElementById(`atab-${pageName}-btn`);
+            if (activePage) activePage.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-semibold text-sm bg-brand text-white transition";
+
+            if (pageName === 'overview') renderAdminOverview();
+            if (pageName === 'bookings') renderAdminBookings();
+            if (pageName === 'inquiries') renderAdminInquiries();
+            if (pageName === 'users') renderAdminUsers();
+            if (pageName === 'packages') renderAdminPackages();
+        }
+
+        function renderAdminOverview() {
+            document.getElementById('stat-total-bookings').textContent = submissions.filter(s => s.type === 'Booking' || s.type === 'Custom Plan').length;
+            document.getElementById('stat-total-inquiries').textContent = submissions.filter(s => s.type === 'Inquiry' || s.type === 'Message').length;
+            document.getElementById('stat-total-users').textContent = users.length;
+        }
+
+        function renderAdminBookings() {
+            const tableBody = document.getElementById('admin-bookings-table');
+            const bookings = submissions.filter(s => s.type === 'Booking' || s.type === 'Custom Plan');
+            
+            tableBody.innerHTML = bookings.length === 0 ? '<tr><td colspan="6" class="p-4 text-center text-slate-500">No bookings recorded.</td></tr>' : '';
+            bookings.slice().reverse().forEach(sub => {
+                tableBody.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${sub.type === 'Booking' ? 'bg-emerald-100 text-brand' : 'bg-indigo-100 text-indigo-700'}">${sub.type}</span></td>
+                        <td class="p-4 font-bold text-slate-900">${sub.name}</td>
+                        <td class="p-4 text-slate-600">${sub.details}</td>
+                        <td class="p-4 text-slate-500">${sub.contact}</td>
+                        <td class="p-4 text-slate-400 text-xs">${sub.date}</td>
+                        <td class="p-4 text-right"><button onclick="deleteSubmission(${sub.id}); renderAdminBookings();" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Delete</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderAdminInquiries() {
+            const tableBody = document.getElementById('admin-inquiries-table');
+            const inquiries = submissions.filter(s => s.type === 'Inquiry' || s.type === 'Message');
+            
+            tableBody.innerHTML = inquiries.length === 0 ? '<tr><td colspan="6" class="p-4 text-center text-slate-500">No inquiries recorded.</td></tr>' : '';
+            inquiries.slice().reverse().forEach(sub => {
+                tableBody.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">${sub.type}</span></td>
+                        <td class="p-4 font-bold text-slate-900">${sub.name}</td>
+                        <td class="p-4 text-slate-600">${sub.details}</td>
+                        <td class="p-4 text-slate-500">${sub.contact}</td>
+                        <td class="p-4 text-slate-400 text-xs">${sub.date}</td>
+                        <td class="p-4 text-right"><button onclick="deleteSubmission(${sub.id}); renderAdminInquiries();" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Delete</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderAdminUsers() {
+            const tableBody = document.getElementById('admin-users-table');
+            tableBody.innerHTML = '';
+            users.forEach(u => {
+                tableBody.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-4 font-bold text-slate-900">${u.name}</td>
+                        <td class="p-4 text-slate-600">${u.email}</td>
+                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-700'}">${u.role}</span></td>
+                        <td class="p-4 text-right">
+                            ${u.email !== 'admin@omoolatravels.com' ? `<button onclick="deleteUser(${u.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Remove</button>` : '<span class="text-xs text-slate-400">Protected</span>'}
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderAdminPackages() {
+            const listEl = document.getElementById('admin-packages-list');
+            listEl.innerHTML = '';
+            packagesData.forEach(p => {
+                listEl.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex justify-between items-center">
+                        <div>
+                            <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs font-bold">${p.category}</span>
+                            <h4 class="font-bold text-slate-900 text-base mt-1">${p.name}</h4>
+                            <p class="text-brand font-bold text-sm">${p.price}</p>
+                        </div>
+                        <button onclick="deletePackage(${p.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function deleteSubmission(id) {
+            submissions = submissions.filter(s => s.id !== id);
+            persistData();
+            showToast('Deleted', 'Record removed successfully.');
+        }
+
+        function deleteUser(id) {
+            users = users.filter(u => u.id !== id);
+            persistData();
+            renderAdminUsers();
+            showToast('User Removed', 'User account deleted.');
+        }
+
+        function deletePackage(id) {
+            packagesData = packagesData.filter(p => p.id !== id);
+            persistData();
+            renderAdminPackages();
+            showToast('Package Removed', 'Tour package deleted.');
+        }
+
+        // Toast Notification Helper
+        function showToast(title, msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-msg').textContent = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        // Initialize UI on load
+        updateAuthUI();
+    </script>
+</body>
+</html>
